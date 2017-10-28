@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 0c7c03d01dfc4d44884d75affa8a064d
+timeCreated: 1508405894
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Compacta BT
+  fontNames:
+  - Compacta BT
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
