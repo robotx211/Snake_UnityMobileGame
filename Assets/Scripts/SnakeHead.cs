@@ -151,8 +151,8 @@ public class SnakeHead : MonoBehaviour {
 
 		if (Input.touchCount > 0) {
 
-			float touchX = Input.GetTouch (0).position.x;
-			float touchY = Input.GetTouch (0).position.y;
+		float touchX = Input.GetTouch (0).position.x - (Screen.width / 2);
+		float touchY = Input.GetTouch (0).position.y - (Screen.height / 2);
 
 			//up
 			if ( touchY >= touchX && touchY >= -touchX
