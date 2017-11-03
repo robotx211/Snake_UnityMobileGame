@@ -45,6 +45,9 @@ public class SnakeHead : MonoBehaviour {
 
 	public GameObject UIManager;
 
+	public int inputMode = 0;
+	private bool waitForNewSwipe = false;
+
 	// Use this for initialization
 	void Start () {
 		//defaults to looking right, so starting move must be up, down or right
@@ -56,7 +59,7 @@ public class SnakeHead : MonoBehaviour {
 		length = 6;
 		timeAlive = 0f;
 
-
+		waitForNewSwipe = false;
 	}
 	
 	// Update is called once per frame
@@ -149,44 +152,102 @@ public class SnakeHead : MonoBehaviour {
 
 		#else
 
-		if (Input.touchCount > 0) {
+		if (inputMode == 0){
+			//touch for direction
 
-		float touchX = Input.GetTouch (0).position.x - (Screen.width / 2);
-		float touchY = Input.GetTouch (0).position.y - (Screen.height / 2);
+			if (Input.touchCount > 0) {
 
-			//up
-			if ( touchY >= touchX && touchY >= -touchX
-				&& lastMoveDirection != new Vector2(0, -1)) {
-				moveDirection.Set (0, 1);
-				if (waitForInput == true) {
-					FirstInput ();
+				float touchX = Input.GetTouch (0).position.x - (Screen.width / 2);
+				float touchY = Input.GetTouch (0).position.y - (Screen.height / 2);
+
+				//up
+				if ( touchY >= touchX && touchY >= -touchX
+					&& lastMoveDirection != new Vector2(0, -1)) {
+					moveDirection.Set (0, 1);
+					if (waitForInput == true) {
+						FirstInput ();
+					}
+				}
+				//right
+				if ( touchX > touchY && touchX > -touchY
+					&& lastMoveDirection != new Vector2(-1, 0)) {
+					moveDirection.Set (1, 0);
+					if (waitForInput == true) {
+						FirstInput ();
+					}
+				}
+				//down
+				if ( touchY <= touchX && touchY <= -touchX
+					&& lastMoveDirection != new Vector2(0, 1)) {
+					moveDirection.Set (0, -1);
+					if (waitForInput == true) {
+						FirstInput ();
+					}
+				}
+				//left
+				if ( touchX < touchY && touchX < -touchY
+					&& lastMoveDirection != new Vector2(1, 0)) {
+					moveDirection.Set (-1, 0);
+					if (waitForInput == true) {
+						FirstInput ();
+					}
 				}
 			}
-			//right
-			if ( touchX > touchY && touchX > -touchY
-				&& lastMoveDirection != new Vector2(-1, 0)) {
-				moveDirection.Set (1, 0);
-				if (waitForInput == true) {
-					FirstInput ();
+
+		}	
+		else if (inputMode == 1) {
+
+			//swipe input
+
+			if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved && waitForNewSwipe == false) {
+
+				float deltaX = Input.GetTouch (0).deltaPosition.x;
+				float deltaY = Input.GetTouch (0).deltaPosition.y;
+
+				//up
+				if ( deltaY >= deltaX && deltaY >= -deltaX
+					&& lastMoveDirection != new Vector2(0, -1)) {
+					moveDirection.Set (0, 1);
+					if (waitForInput == true) {
+						FirstInput ();
+					}
 				}
-			}
-			//down
-			if ( touchY <= touchX && touchY <= -touchX
-				&& lastMoveDirection != new Vector2(0, 1)) {
-				moveDirection.Set (0, -1);
-				if (waitForInput == true) {
-					FirstInput ();
+				//right
+				if ( deltaX > deltaY && deltaX > -deltaY
+					&& lastMoveDirection != new Vector2(-1, 0)) {
+					moveDirection.Set (1, 0);
+					if (waitForInput == true) {
+						FirstInput ();
+					}
 				}
-			}
-			//left
-			if ( touchX < touchY && touchX < -touchY
-				&& lastMoveDirection != new Vector2(1, 0)) {
-				moveDirection.Set (-1, 0);
-				if (waitForInput == true) {
-					FirstInput ();
+				//down
+				if ( deltaY <= deltaX && deltaY <= -deltaX
+					&& lastMoveDirection != new Vector2(0, 1)) {
+					moveDirection.Set (0, -1);
+					if (waitForInput == true) {
+						FirstInput ();
+					}
 				}
+				//left
+				if ( deltaX < deltaY && deltaX < -deltaY
+					&& lastMoveDirection != new Vector2(1, 0)) {
+					moveDirection.Set (-1, 0);
+					if (waitForInput == true) {
+						FirstInput ();
+					}
+				}
+
+				waitForNewSwipe = true;
 			}
+
+			if (Input.GetTouch(0).phase == TouchPhase.Ended && waitForNewSwipe == true){
+				waitForNewSwipe = false;
+			}
+
+
 		}
+
+
 
 		#endif
 

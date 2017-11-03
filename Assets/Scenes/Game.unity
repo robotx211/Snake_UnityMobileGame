@@ -259,6 +259,11 @@ Prefab:
       propertyPath: UIManager
       value: 
       objectReference: {fileID: 507394574}
+    - target: {fileID: 114280882080939646, guid: 09894025ca55a5d49993420bd0e2c27f,
+        type: 2}
+      propertyPath: inputMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 09894025ca55a5d49993420bd0e2c27f, type: 2}
